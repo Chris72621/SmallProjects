@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Keep Tab Settings</title>
+    <link rel="stylesheet" href="popup.css" />
+</head>
+
+<body>
+    <!-- Header with title and info icon -->
+    <div class="header">
+        <span class="title">Keep Only Target Tab</span>
+        <span class="info-icon" id="infoBtn">
+            <img src="./information.png" alt="info" class="info-img" />
+        </span>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- Main content card -->
+    <div class="card">
+        <h3>Target URL:</h3>
+        <input type="text" id="targetUrl" placeholder="https://example.com" />
+        <button id="saveBtn">Save</button>
+        <div id="saveStatus" class="save-status" style="display: none;">Saved!</div>
+
+    </div>
+
+    <!-- Toggle buttons container -->
+    <div class="toggle-row">
+        <!-- Activate toggle -->
+        <div>
+            <label class="switch">
+                <input type="checkbox" id="enableToggle" />
+                <span class="slider round"></span>
+            </label>
+            <label for="enableToggle" class="toggle-label">Activate</label>
+        </div>
+
+        <!-- View current target toggle -->
+        <div>
+            <label class="switch">
+                <input type="checkbox" id="toggleTarget" />
+                <span class="slider round"></span>
+            </label>
+            <label for="toggleTarget" class="toggle-label">View Current Target</label>
+        </div>
+    </div>
+
+    <!-- Target display box (initially hidden) -->
+    <div id="currentTargetBox" class="target-box" style="display: none;">
+        <div id="currentTarget">None</div>
+    </div>
+
+    <div class="link-buttons">
+        <button id="streamEastBtn">StreamEast NFL</button>
+        <button id="tvAppBtn">TV App NFL</button>
+    </div>
+
+    <!-- JS -->
+    <script src="popup.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Keep Only Target Tab",
+  "version": "1.1",
+  "description": "Closes all tabs except the one with the target URL.",
+  "permissions": ["tabs", "storage"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_icon": {
+      "16": "target.png"
+    },
+    "default_popup": "popup.html",
+    "default_title": "Control Target Tab"
+  }
+}

@@ -1,0 +1,212 @@
+/* === Base layout === */
+body {
+    font-family: Inter, Roboto, system-ui, sans-serif;
+    width: 430px;
+    background-color: #1e1e2f; /* Dark background */
+    color: #f0f0f0;
+  }
+  
+  /* === Card container === */
+  .card {
+    background: 
+      linear-gradient(#2a2a3d, #2a2a3d) padding-box, /* inner content */
+      linear-gradient(90deg, #3b82f6, #FB4F14) border-box; /* outer border */
+    border: 2px solid transparent;
+    border-radius: 10px;
+    padding: 12px;
+    margin: 10px;
+  }
+  
+  
+  /* === Header section === */
+  .header {
+    padding: 10px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 6px
+  }
+  
+  .title {
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+  }
+  
+  .info-icon {
+    cursor: pointer;
+    font-size: 18px;
+    color: white;
+  }
+  
+  .info-img {
+    width: 25px;
+    height: 25px;
+  }
+  
+  .divider {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, #3b82f6, #FB4F14); /* blue to green */
+    margin: 16px 0;
+    border-radius: 1px;
+  }
+  
+  
+  /* === Form elements === */
+  input[type="text"] {
+    width: 95%;
+    padding: 8px;
+    margin-bottom: 12px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background-color: #1e1e2f;
+    color: #f0f0f0;
+  }
+  
+  input[type="text"]:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 4px #3b82f6;
+  }
+  
+  button {
+    width: 100%;
+    padding: 8px;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    font-weight: bold;
+  }
+  
+  button:hover {
+    background-color: #2563eb;
+  }
+  
+  p {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #ccc;
+  }
+  
+  /* === Slide toggle switch === */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 46px;
+    height: 24px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    background-color: #555;
+    transition: 0.4s;
+    border-radius: 24px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+  }
+  
+  input:checked + .slider {
+    background-color: #4caf50;
+    box-shadow: 0 0 4px #4caf50a0;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(22px);
+  }
+  
+/* Toggle label spacing */
+.toggle-label {
+    font-size: 13px;
+    color: #ccc;
+    margin-left: 7px;
+    vertical-align: middle;
+  }
+  
+  /* Target URL reveal box */
+  .target-box {
+    margin-top: 8px;
+    background-color: #1e293b;
+    border: 1px solid #3b82f6;
+    padding: 6px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #f1f5f9;
+    word-break: break-all;
+  }
+  
+  .toggle-row {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Adjust spacing here */
+    margin-top: 12px;
+  }
+  
+  .link-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  
+  .link-buttons button {
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    background: #1e1e2f;
+    border: 2px solid;
+    border-image: linear-gradient(90deg, #3b82f6, #FB4F14); /* blue to green */
+    border-image-slice: 1;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+  }
+  
+  .link-buttons button:hover {
+    background-color: #2a2a3d;
+    transform: translateY(-1px);
+  }
+
+  .save-status {
+    color: #22c55e;
+    font-size: 13px;
+    margin-top: 4px;
+    text-align: center;
+    animation: fadeOut 2s ease-out forwards;
+  }
+  
+  /* Fade out animation */
+  @keyframes fadeOut {
+    0%   { opacity: 1; }
+    80%  { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  
+  
