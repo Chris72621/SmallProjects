@@ -1,0 +1,11 @@
+{
+    "manifest_version": 3,
+    "name": "StayOnSite",
+    "version": "1.0",
+    "description": "Keep your browsing focused on a single site.",
+    "permissions": ["storage", "tabs"],
+    "action": {
+      "default_popup": "popup.html"
+    }
+  }
+  
