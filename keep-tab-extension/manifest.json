@@ -1,18 +1,23 @@
 {
   "manifest_version": 3,
   "name": "Keep Only Target Tab",
-  "version": "1.1",
-  "description": "Closes all tabs except the one with the target URL.",
+  "version": "1.0",
+  "description": "Automatically keeps only the specified tab open and closes distractions.",
   "permissions": ["tabs", "storage"],
-  "host_permissions": ["<all_urls>"],
-  "background": {
-    "service_worker": "background.js"
-  },
   "action": {
-    "default_icon": {
-      "16": "target.png"
-    },
     "default_popup": "popup.html",
-    "default_title": "Control Target Tab"
+    "default_icon": {
+      "16": "assets/target.png",
+      "48": "assets/target.png",
+      "128": "assets/target.png"
+    }
+  },
+  "background": {
+    "service_worker": "src/tab-enforcer.js"
+  },
+  "icons": {
+    "16": "assets/target.png",
+    "48": "assets/target.png",
+    "128": "assets/target.png"
   }
 }
