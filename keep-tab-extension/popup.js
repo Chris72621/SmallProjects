@@ -17,10 +17,27 @@ document.addEventListener("DOMContentLoaded", () => {
     enableToggle.checked = data.enabled ?? false;
   });
 
+  function isValidBaseUrl(url) {
+    try {
+      const parsed = new URL(url);
+      return (
+        (parsed.protocol === "http:" || parsed.protocol === "https:") &&
+        parsed.hostname &&
+        parsed.hostname.includes(".")
+      );
+    } catch {
+      return false;
+    }
+  }
+
   // Save and show confirmation
   saveBtn.addEventListener("click", () => {
     const newUrl = urlInput.value.trim();
-    if (!newUrl) return;
+
+    if (!isValidBaseUrl(newUrl)) {
+      alert("Invalid URL. Please enter a full link like https://example.com.");
+      return;
+    }
 
     chrome.storage.local.set({ targetUrl: newUrl }, () => {
       currentTarget.textContent = newUrl;
@@ -53,10 +70,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Link buttons
   document.getElementById("streamEastBtn").addEventListener("click", () => {
-    chrome.tabs.create({ url: "https://the.streameast.app/v90" });
+    const newUrl = "https://the.streameast.app";
+  
+    if (!isValidBaseUrl(newUrl)) {
+      alert("Invalid target URL for StreamEast.");
+      return;
+    }
+  
+    chrome.storage.local.set({ targetUrl: newUrl }, () => {
+      chrome.tabs.create({ url: newUrl });
+  
+      urlInput.value = newUrl;
+      currentTarget.textContent = newUrl;
+      currentTargetBox.style.display = toggleTarget.checked ? "block" : "none";
+    });
   });
-
+  
   document.getElementById("tvAppBtn").addEventListener("click", () => {
-    chrome.tabs.create({ url: "https://thetvapp.to/nfl" });
+    const newUrl = "https://thetvapp.to";
+  
+    if (!isValidBaseUrl(newUrl)) {
+      alert("Invalid target URL for TV App.");
+      return;
+    }
+  
+    chrome.storage.local.set({ targetUrl: newUrl }, () => {
+      chrome.tabs.create({ url: newUrl });
+  
+      urlInput.value = newUrl;
+      currentTarget.textContent = newUrl;
+      currentTargetBox.style.display = toggleTarget.checked ? "block" : "none";
+    });
   });
+  
 });
