@@ -5,6 +5,7 @@ const useStyles = makeStyles({
         display: "flex",
         alignItems: "center",
         padding: "12px",
+        gap: "30px"
     },
 });
 
@@ -20,7 +21,7 @@ export const HeaderSection = () => {
                 width={50}
             />
             <Switch label="Activate" />
-            <Switch label="View Current Site" />
+            <Switch label="Current Site" />
         </div>
     );
 };
