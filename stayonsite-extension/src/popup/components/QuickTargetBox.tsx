@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-import { makeStyles, Field, Input, InfoLabel, LabelProps, Button, Subtitle2Stronger, Switch } from "@fluentui/react-components";
+import { makeStyles, Field, Input, InfoLabel, LabelProps, Button, Subtitle2Stronger, Switch, Accordion } from "@fluentui/react-components";
 
 const useStyles = makeStyles({
     box: {
-        backgroundColor: "var(--colorNeutralBackground2)",
         padding: "12px",
-        borderRadius: "8px",
-        marginBottom: "16px",
         display: "flex",
         flexDirection: "column",
         gap: "8px",
@@ -19,18 +16,6 @@ export const QuickTargetBox = () => {
 
     return (
         <div className={styles.box}>
-            <InfoLabel
-                info={
-                    <>
-                        This is example information for an InfoLabel.{" "}
-                    </>
-                }
-            >
-                <Subtitle2Stronger>QUICK TARGET</Subtitle2Stronger>
-            </InfoLabel>
-
-            <br />
-
             <Field label="URL">
                 <Input
                     value={url}
@@ -38,9 +23,7 @@ export const QuickTargetBox = () => {
                     placeholder="https://example.com"
                 />
             </Field>
-            <br />
-            <Switch label="Activate" />
-
+            <Button>Save</Button>
         </div>
     );
 };

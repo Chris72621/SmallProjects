@@ -1,25 +1,47 @@
-import React, { useState } from "react";
-import { makeStyles, Field, Input, InfoLabel, LabelProps, Button, Subtitle2Stronger } from "@fluentui/react-components";
+import { makeStyles, Field, Input, InfoLabel, LabelProps, Button, Subtitle2Stronger, SplitButton, Menu, MenuButtonProps, MenuItem, MenuList, MenuPopover, MenuTrigger } from "@fluentui/react-components";
 
 const useStyles = makeStyles({
     box: {
-        backgroundColor: "var(--colorNeutralBackground2)",
         padding: "12px",
-        borderRadius: "8px",
-        borderBlockStyle: "none",
-        marginBottom: "16px",
         display: "flex",
         flexDirection: "column",
-        gap: "8px",
+        
+        gap: "px",
+        backgroundColor: "var(--colorNeutralBackground2)",
     },
+    splitBtn: {
+        width: "300px"
+    }
 });
+
 
 export const BookmarksBox = () => {
     const styles = useStyles();
 
     return (
         <div className={styles.box}>
-      
+            <Subtitle2Stronger>BOOKMARKS</Subtitle2Stronger>
+
+            <Menu>
+                <MenuTrigger disableButtonEnhancement>
+                    {(triggerProps: MenuButtonProps) => (
+                        <div className={styles.splitBtn}>
+                            <SplitButton
+                                menuButton={triggerProps}
+                            >
+                                Example
+                            </SplitButton>
+                        </div>
+
+                    )}
+                </MenuTrigger>
+
+                <MenuPopover>
+                    <MenuList>
+                        <MenuItem>Delete</MenuItem>
+                    </MenuList>
+                </MenuPopover>
+            </Menu>
         </div>
     );
 };
