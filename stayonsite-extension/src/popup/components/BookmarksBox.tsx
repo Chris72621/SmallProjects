@@ -1,19 +1,29 @@
-import { makeStyles, Field, Input, InfoLabel, LabelProps, Button, Subtitle2Stronger, SplitButton, Menu, MenuButtonProps, MenuItem, MenuList, MenuPopover, MenuTrigger } from "@fluentui/react-components";
+import {
+    makeStyles,
+    Subtitle2Stronger,
+    Menu,
+    MenuTrigger,
+    MenuPopover,
+    MenuList,
+    MenuItem,
+    SplitButton,
+    MenuButtonProps,
+} from "@fluentui/react-components";
 
 const useStyles = makeStyles({
     box: {
         padding: "12px",
         display: "flex",
         flexDirection: "column",
-        
-        gap: "px",
-        backgroundColor: "var(--colorNeutralBackground2)",
+        alignItems: "center",
+        gap: "12px",
+        borderRadius: "8px",
+        marginBottom: "16px",
     },
     splitBtn: {
-        width: "300px"
-    }
+        width: "100%",
+    },
 });
-
 
 export const BookmarksBox = () => {
     const styles = useStyles();
@@ -25,20 +35,20 @@ export const BookmarksBox = () => {
             <Menu>
                 <MenuTrigger disableButtonEnhancement>
                     {(triggerProps: MenuButtonProps) => (
-                        <div className={styles.splitBtn}>
-                            <SplitButton
-                                menuButton={triggerProps}
-                            >
-                                Example
-                            </SplitButton>
-                        </div>
-
+                        <SplitButton
+                            menuButton={triggerProps}
+                            onClick={() => console.log("Main clicked")}
+                            className={styles.splitBtn}
+                            primaryActionButton={{ className: styles.splitBtn }}
+                        >
+                            Example
+                        </SplitButton>
                     )}
                 </MenuTrigger>
 
                 <MenuPopover>
                     <MenuList>
-                        <MenuItem>Delete</MenuItem>
+                        <MenuItem onClick={() => console.log("Delete clicked")}>Delete</MenuItem>
                     </MenuList>
                 </MenuPopover>
             </Menu>

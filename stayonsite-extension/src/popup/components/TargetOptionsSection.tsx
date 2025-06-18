@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { makeStyles, Field, Input, InfoLabel, LabelProps, Button, Subtitle2Stronger, Switch, Accordion, AccordionHeader, AccordionItem, AccordionPanel } from "@fluentui/react-components";
+import { makeStyles, Field, Input, InfoLabel, LabelProps, Button, Subtitle2Stronger, Switch, Accordion, AccordionHeader, AccordionItem, AccordionPanel, Divider } from "@fluentui/react-components";
 import { QuickTargetBox } from "./QuickTargetBox";
 import { BookmarksBox } from "./BookmarksBox";
 import { SaveBookmarksBox } from "./SaveBookmarksBox";
@@ -29,6 +29,7 @@ export const TargetOptionsSection = () => {
                         <QuickTargetBox />
                     </AccordionPanel>
                 </AccordionItem>
+                <Divider/>
                 <AccordionItem value="2">
                     <AccordionHeader>BOOKMARK URL</AccordionHeader>
                     <AccordionPanel>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { makeStyles, Field, Input, InfoLabel, LabelProps, Button, Subtitle2Stronger } from "@fluentui/react-components";
 
 const useStyles = makeStyles({
@@ -24,7 +24,7 @@ export const SaveBookmarksBox = () => {
                     placeholder="MovieOnline"
                 />
             </Field>
-            
+
             <Field label="URL">
                 <Input
                     value={url}
