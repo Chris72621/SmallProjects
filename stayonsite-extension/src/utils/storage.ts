@@ -1,3 +1,4 @@
+import { isValidUrl } from "./validation";
 const CURRENT_URL_KEY = "currentTargetUrl";
 
 export const saveCurrentUrl = async (url: string): Promise<void> => {
@@ -46,4 +47,26 @@ export const getActivate = (): Promise<boolean> => {
       resolve(result.activate ?? false);
     });
   });
+};
+
+export const saveBookmark = async (newBookmark: { name: string; url: string }) => {
+  if (!isValidUrl(newBookmark.url)) return;
+
+  chrome.storage.local.set({
+    stayOnSiteBookmarks: [newBookmark], // replaces existing as per your request
+  });
+};
+
+export const getBookmark = (): Promise<{ name: string; url: string }[]> => {
+  return new Promise((resolve) => {
+    chrome.storage.local.get("stayOnSiteBookmarks", (result) => {
+      resolve(result.stayOnSiteBookmarks || []);
+    });
+  });
+};
+
+export const deleteBookmark = async (nameToDelete: string) => {
+  const existing = await getBookmark();
+  const updated = existing.filter(b => b.name !== nameToDelete);
+  chrome.storage.local.set({ stayOnSiteBookmarks: updated });
 };

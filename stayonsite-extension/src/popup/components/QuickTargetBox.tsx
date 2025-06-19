@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { makeStyles, Field, Input, Button } from "@fluentui/react-components";
 import { saveCurrentUrl } from "../../utils/storage";
+import { isValidUrl } from "../../utils/validation";
+
 
 const useStyles = makeStyles({
   box: {
@@ -33,7 +35,16 @@ export const QuickTargetBox = () => {
           placeholder="https://example.com"
         />
       </Field>
-      <Button onClick={handleSave}>Save</Button>
+      <Button
+        onClick={() => {
+          if (!isValidUrl(url)) return;
+          saveCurrentUrl(url);
+          setUrl(""); // optional: reset input
+        }}
+      >
+        Save
+      </Button>
+
     </div>
   );
 };

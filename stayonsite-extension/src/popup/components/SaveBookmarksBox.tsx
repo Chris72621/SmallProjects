@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { makeStyles, Field, Input, InfoLabel, LabelProps, Button, Subtitle2Stronger } from "@fluentui/react-components";
+import { makeStyles, Field, Input, Button } from "@fluentui/react-components";
+import { saveBookmark } from "../../utils/storage";
 
 const useStyles = makeStyles({
     box: {
@@ -33,8 +34,16 @@ export const SaveBookmarksBox = () => {
                 />
             </Field>
 
-            <Button>Save</Button>
-
+            <Button onClick={() => {
+                if (name && url) {
+                    saveBookmark(name, url).then(() => {
+                        setName("");
+                        setUrl("");
+                    });
+                }
+            }}>
+                Save
+            </Button>
         </div>
     );
 };
