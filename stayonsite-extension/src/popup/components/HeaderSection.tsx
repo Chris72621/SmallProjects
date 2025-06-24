@@ -13,9 +13,12 @@ import {
     getShowSite,
 } from "../../utils/storage";
 
+const webStoreUrl = `https://chrome.google.com/webstore/detail/${chrome.runtime.id}`;
+
 const useStyles = makeStyles({
     wrapper: { display: "flex", flexDirection: "column", gap: "12px", padding: "12px" },
     topRow: { display: "flex", alignItems: "center", gap: "30px" },
+    noWrap: { whiteSpace: "nowrap", },
 });
 
 export const HeaderSection = () => {
@@ -66,7 +69,19 @@ export const HeaderSection = () => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.topRow}>
-                <Image alt="Logo" src="/target.png" height={50} width={50} />
+                <a
+                    href={webStoreUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ display: "inline-block", cursor: "pointer" }}
+                >
+                    <Image
+                        alt="StayOnSite Logo"
+                        src="/target.png"
+                        height={50}
+                        width={50}
+                    />
+                </a>
                 {isActive !== null && (
                     <Switch
                         label="Activate"
@@ -76,10 +91,12 @@ export const HeaderSection = () => {
                 )}
                 {showSaved !== null && (
                     <Switch
-                        label="Current Site"
+                        label="Show Current Site"
+                        className={styles.noWrap}
                         checked={showSaved}
                         onChange={handleCurrentSiteToggle}
                     />
+
                 )}
             </div>
             {showSaved && savedUrl && <Text>{savedUrl}</Text>}

@@ -28,11 +28,12 @@ export const QuickTargetBox = () => {
 
   return (
     <div className={styles.box}>
-      <Field label="URL">
+      <Field label="URL" hint="Base URL—everything under this path is allowed (e.g. https://chatgpt.com/)">
         <Input
           value={url}
           onChange={(e) => setUrl(e.currentTarget.value)}
-          placeholder="https://example.com"
+          placeholder="https://example.com/"
+          
         />
       </Field>
       <Button

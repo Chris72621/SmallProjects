@@ -3,8 +3,14 @@
   "name": "StayOnSite",
   "version": "1.0",
   "description": "Keep your browsing focused on a single site.",
-  "permissions": ["storage", "tabs"],
-  "host_permissions": ["<all_urls>"],
+  "permissions": [
+    "storage",
+    "tabs",
+    "notifications"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
   "background": {
     "service_worker": "background/background.js",
     "type": "module"

@@ -1,5 +1,5 @@
 import { cleanTabs } from "./tabManager.js";
-import { getActivate, getCurrentUrl } from "../utils/storage.js";
+import { getActivate, getShowSite, getCurrentUrl } from "../utils/storage.js";
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message.action === "cleanTabs") {
@@ -8,36 +8,51 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   }
 
   if (message.action === "activateFiltering") {
-    getCurrentUrl().then((targetUrl) => {
-      if (!targetUrl) return sendResponse({ status: "no-url" });
-
-      chrome.tabs.query({}, (tabs) => {
-        for (const tab of tabs) {
-          if (tab.url && !tab.url.startsWith(targetUrl)) {
-            chrome.tabs.remove(tab.id!);
-          }
+    Promise.all([getActivate(), getShowSite(), getCurrentUrl()])
+      .then(([isActive, showSite, rawUrl]) => {
+        if (!isActive || !showSite) {
+          sendResponse({ status: "inactive" });
+          return;
         }
-        sendResponse({ status: "done" });
+        if (!rawUrl) {
+          sendResponse({ status: "no-url" });
+          return;
+        }
+
+        // ensure trailing slash for prefix matching
+        const targetUrl = rawUrl.endsWith("/") ? rawUrl : rawUrl + "/";
+
+        chrome.tabs.query({}, (tabs) => {
+          for (const tab of tabs) {
+            if (tab.url && !tab.url.startsWith(targetUrl) && tab.id != null) {
+              chrome.tabs.remove(tab.id);
+            }
+          }
+          sendResponse({ status: "done" });
+        });
       });
-    });
 
     return true;
   }
 });
 
-// 🔁 Continuous check every 1 second if "Activate" is on
+// periodic enforcement
 setInterval(async () => {
-  const isActive = await getActivate();
-  if (!isActive) return;
+  const [isActive, showSite] = await Promise.all([
+    getActivate(),
+    getShowSite(),
+  ]);
+  if (!isActive || !showSite) return;
 
-  const targetUrl = await getCurrentUrl();
-  if (!targetUrl) return;
+  const rawUrl = await getCurrentUrl();
+  if (!rawUrl) return;
+  const targetUrl = rawUrl.endsWith("/") ? rawUrl : rawUrl + "/";
 
   chrome.tabs.query({}, (tabs) => {
     for (const tab of tabs) {
-      if (tab.url && !tab.url.startsWith(targetUrl)) {
-        chrome.tabs.remove(tab.id!);
+      if (tab.url && !tab.url.startsWith(targetUrl) && tab.id != null) {
+        chrome.tabs.remove(tab.id);
       }
     }
   });
-}, 1000);
+}, 100);

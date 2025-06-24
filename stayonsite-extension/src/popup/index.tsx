@@ -8,9 +8,9 @@ import { BookmarksBox } from "./components/BookmarksBox";
 
 const useStyles = makeStyles({
   popup: {
-    width: "400px",
+    width: "430px",
     padding: "16px",
-    backgroundColor: "var(--colorNeutralBackground1)", // or your brand background
+    backgroundColor: "var(--colorNeutralBackground1)", 
     display: "flex",
     flexDirection: "column",
   },

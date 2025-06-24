@@ -8,7 +8,7 @@ const useStyles = makeStyles({
         padding: "12px",
         display: "flex",
         flexDirection: "column",
-        gap: "8px",
+        gap: "12px",
     },
 });
 
@@ -29,10 +29,12 @@ export const SaveBookmarksBox = () => {
             <Field label="Name">
                 <Input value={name} onChange={e => setName(e.currentTarget.value)} placeholder="MovieOnline" />
             </Field>
-            <Field label="URL">
-                <Input value={url} onChange={e => setUrl(e.currentTarget.value)} placeholder="https://example.com" />
+            <Field label="URL" hint="Base URL—everything under this path is allowed (e.g. https://chatgpt.com/)">
+                <Input value={url} onChange={e => setUrl(e.currentTarget.value)} placeholder="https://example.com/" />
             </Field>
             <Button onClick={handleSave}>Save</Button>
         </div>
     );
 };
+
+
