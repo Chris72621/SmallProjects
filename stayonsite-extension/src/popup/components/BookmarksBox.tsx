@@ -10,7 +10,7 @@ import {
     SplitButton,
     MenuButtonProps,
 } from "@fluentui/react-components";
-import { getBookmark, deleteBookmark } from "../../utils/storage";
+import { getBookmark, deleteBookmark, saveCurrentUrl, setActivate, setShowSite } from "../../utils/storage";
 
 const useStyles = makeStyles({
     box: {
@@ -64,14 +64,17 @@ export const BookmarksBox = () => {
                             <SplitButton
                                 menuButton={triggerProps}
                                 className={styles.splitBtn}
-                                primaryActionButton={{ className: styles.splitBtn }}
-                                onClick={() => {
-                                    chrome.storage.local.set({ currentTargetUrl: url, showSite: true });
+                                primaryActionButton={{
+                                    className: styles.splitBtn,
+                                    onClick: async () => {
+                                        await saveCurrentUrl(url);
+                                        setShowSite(true);
+                                        setActivate(true);
+                                    }
                                 }}
                             >
                                 {name}
                             </SplitButton>
-
                         )}
                     </MenuTrigger>
                     <MenuPopover>
