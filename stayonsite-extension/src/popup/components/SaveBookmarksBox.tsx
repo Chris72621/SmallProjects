@@ -19,7 +19,7 @@ export const SaveBookmarksBox = () => {
 
     const handleSave = async () => {
         if (!name || !url) return;
-        await saveBookmark({ name, url });               // ← pass object
+        await saveBookmark({ name, url }); 
         setName("");
         setUrl("");
     };

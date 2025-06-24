@@ -14,6 +14,11 @@ const useStyles = makeStyles({
         flexDirection: "column",
         gap: "8px",
     },
+    headerContent: {
+        display: "flex",
+        alignItems: "center",
+        gap: "4px",
+    },
 });
 
 export const TargetOptionsSection = () => {
@@ -24,14 +29,37 @@ export const TargetOptionsSection = () => {
         <div className={styles.box}>
             <Accordion collapsible multiple>
                 <AccordionItem value="1">
-                    <AccordionHeader>QUICK TARGET</AccordionHeader>
+                    <AccordionHeader>
+                        <div className={styles.headerContent}>
+                            QUICK TARGET
+                            <span
+                                onClick={e => {
+                                    e.stopPropagation();
+                                }}
+                            >
+                                <InfoLabel info="Enter any URL and click Save to set it as the only allowed site when filtering is active." />
+                            </span>
+                        </div>
+                    </AccordionHeader>
                     <AccordionPanel>
                         <QuickTargetBox />
                     </AccordionPanel>
                 </AccordionItem>
-                <Divider/>
+                <Divider />
                 <AccordionItem value="2">
-                    <AccordionHeader>BOOKMARK URL</AccordionHeader>
+                    <AccordionHeader>
+                        <div className={styles.headerContent}>
+                            BOOKMARK URL
+                            <span
+                                onClick={e => {
+                                    e.stopPropagation();
+                                }}
+                            >
+                                <InfoLabel info="Give a name and URL, then hit Save to add it. Use the bookmark buttons below to switch targets instantly." />
+                            </span>
+
+                        </div>
+                    </AccordionHeader>
                     <AccordionPanel>
                         <SaveBookmarksBox />
                     </AccordionPanel>
