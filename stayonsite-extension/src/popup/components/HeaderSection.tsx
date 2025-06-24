@@ -5,7 +5,8 @@ import {
     Text,
 } from "@fluentui/react-components";
 import { useState, useEffect } from "react";
-import { setActivate, getActivate, getCurrentUrl } from "../../utils/storage";
+import { setActivate, getActivate, getCurrentUrl, getShowSite, setShowSite } from "../../utils/storage";
+
 
 const useStyles = makeStyles({
     wrapper: {
@@ -25,27 +26,29 @@ const useStyles = makeStyles({
 export const HeaderSection = () => {
     const styles = useStyles();
     const [isActive, setIsActive] = useState<boolean | null>(null);
-    const [showSaved, setShowSaved] = useState(false);
+    const [showSaved, setShowSaved] = useState<boolean | null>(null);
     const [savedUrl, setSavedUrl] = useState<string | null>(null);
 
     useEffect(() => {
         getActivate().then(setIsActive);
+        getShowSite().then(flag => {
+            setShowSaved(flag);
+            if (flag) getCurrentUrl().then(setSavedUrl);
+        });
     }, []);
 
-    const handleActivateChange = (_e: unknown, data: { checked: boolean }) => {
+
+    const handleActivateChange = (_: unknown, data: { checked: boolean }) => {
         setIsActive(data.checked);
         setActivate(data.checked);
     };
 
-    const handleCurrentSiteToggle = async (
-        _e: unknown,
-        data: { checked: boolean }
-    ) => {
-        setShowSaved(data.checked);
-
-        if (data.checked) {
-            const saved = await getCurrentUrl();
-            setSavedUrl(saved);
+    const handleCurrentSiteToggle = async (_: unknown, { checked }: { checked: boolean }) => {
+        setShowSaved(checked);
+        setShowSite(checked);
+        if (checked) {
+            const url = await getCurrentUrl();
+            setSavedUrl(url);
         } else {
             setSavedUrl(null);
         }
@@ -62,11 +65,14 @@ export const HeaderSection = () => {
                         onChange={handleActivateChange}
                     />
                 )}
-                <Switch
-                    label="Current Site"
-                    checked={showSaved}
-                    onChange={handleCurrentSiteToggle}
-                />
+                {showSaved !== null && (
+                    <Switch
+                        label="Current Site"
+                        checked={showSaved}
+                        onChange={handleCurrentSiteToggle}
+                    />
+                )}
+
             </div>
             {showSaved && savedUrl && <Text>{savedUrl}</Text>}
         </div>

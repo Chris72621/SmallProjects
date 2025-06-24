@@ -70,3 +70,16 @@ export const deleteBookmark = async (nameToDelete: string) => {
   const updated = existing.filter(b => b.name !== nameToDelete);
   chrome.storage.local.set({ stayOnSiteBookmarks: updated });
 };
+
+// persist the “show site” flag
+export const setShowSite = (flag: boolean): void => {
+  chrome.storage.local.set({ showSite: flag });
+};
+
+// read it back (defaults to false)
+export const getShowSite = (): Promise<boolean> =>
+  new Promise((resolve) => {
+    chrome.storage.local.get(["showSite"], (res) => {
+      resolve(res.showSite ?? false);
+    });
+  });
