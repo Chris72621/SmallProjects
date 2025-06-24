@@ -5,23 +5,18 @@ import {
     Text,
 } from "@fluentui/react-components";
 import { useState, useEffect } from "react";
-import { setActivate, getActivate, getCurrentUrl, getShowSite, setShowSite } from "../../utils/storage";
-
+import {
+    setActivate,
+    getActivate,
+    getCurrentUrl,
+    setShowSite,
+    getShowSite,
+} from "../../utils/storage";
 
 const useStyles = makeStyles({
-    wrapper: {
-        display: "flex",
-        flexDirection: "column",
-        gap: "12px",
-        padding: "12px",
-    },
-    topRow: {
-        display: "flex",
-        alignItems: "center",
-        gap: "30px",
-    },
+    wrapper: { display: "flex", flexDirection: "column", gap: "12px", padding: "12px" },
+    topRow: { display: "flex", alignItems: "center", gap: "30px" },
 });
-
 
 export const HeaderSection = () => {
     const styles = useStyles();
@@ -30,17 +25,31 @@ export const HeaderSection = () => {
     const [savedUrl, setSavedUrl] = useState<string | null>(null);
 
     useEffect(() => {
+        // 1) load stored values once
         getActivate().then(setIsActive);
         getShowSite().then(flag => {
             setShowSaved(flag);
             if (flag) getCurrentUrl().then(setSavedUrl);
         });
+
+        // 2) subscribe to any storage changes
+        const listener = (
+            changes: Record<string, chrome.storage.StorageChange>,
+            area: string
+        ) => {
+            if (area !== "local") return;
+            if (changes.activate) setIsActive(changes.activate.newValue);
+            if (changes.showSite) setShowSaved(changes.showSite.newValue);
+            if (changes.currentTargetUrl) setSavedUrl(changes.currentTargetUrl.newValue);
+        };
+
+        chrome.storage.onChanged.addListener(listener);
+        return () => chrome.storage.onChanged.removeListener(listener);
     }, []);
 
-
-    const handleActivateChange = (_: unknown, data: { checked: boolean }) => {
-        setIsActive(data.checked);
-        setActivate(data.checked);
+    const handleActivateChange = (_: unknown, { checked }: { checked: boolean }) => {
+        setIsActive(checked);
+        setActivate(checked);
     };
 
     const handleCurrentSiteToggle = async (_: unknown, { checked }: { checked: boolean }) => {
@@ -57,7 +66,7 @@ export const HeaderSection = () => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.topRow}>
-                <Image alt="StayOnSite Logo" src="/target.png" height={50} width={50} />
+                <Image alt="Logo" src="/target.png" height={50} width={50} />
                 {isActive !== null && (
                     <Switch
                         label="Activate"
@@ -72,10 +81,8 @@ export const HeaderSection = () => {
                         onChange={handleCurrentSiteToggle}
                     />
                 )}
-
             </div>
             {showSaved && savedUrl && <Text>{savedUrl}</Text>}
         </div>
     );
-
 };
