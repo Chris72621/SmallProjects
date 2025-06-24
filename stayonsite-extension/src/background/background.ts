@@ -49,6 +49,10 @@ setInterval(async () => {
   const targetUrl = rawUrl.endsWith("/") ? rawUrl : rawUrl + "/";
 
   chrome.tabs.query({}, (tabs) => {
+    if (tabs.length === 1) return; 
+
+
+
     for (const tab of tabs) {
       if (tab.url && !tab.url.startsWith(targetUrl) && tab.id != null) {
         chrome.tabs.remove(tab.id);
