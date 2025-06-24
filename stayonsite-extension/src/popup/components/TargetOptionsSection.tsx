@@ -27,7 +27,10 @@ export const TargetOptionsSection = () => {
 
     return (
         <div className={styles.box}>
+                <Field hint="Base URL permits every subpage (e.g. https://chatgpt.com/)"/>
+
             <Accordion collapsible multiple>
+
                 <AccordionItem value="1">
                     <AccordionHeader>
                         <div className={styles.headerContent}>

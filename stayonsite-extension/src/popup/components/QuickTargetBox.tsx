@@ -40,15 +40,13 @@ export const QuickTargetBox = () => {
     await saveCurrentUrl(url);
     setSaved(true);
     setUrl("");
-    // clear success after 2s
-    setTimeout(() => setSaved(false), 2000);
+    setTimeout(() => setSaved(false), 3000);
   };
 
   return (
     <div className={styles.box}>
       <Field
         label="URL"
-        hint="Base URL—everything under this path is allowed (e.g. https://chatgpt.com/)"
         validationState={error ? "error" : saved ? "success" : undefined}
         validationMessage={
           error
