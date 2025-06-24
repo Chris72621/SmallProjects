@@ -1,8 +1,9 @@
+// src/components/QuickTargetBox.tsx
+
 import { useState } from "react";
 import { makeStyles, Field, Input, Button } from "@fluentui/react-components";
 import { saveCurrentUrl } from "../../utils/storage";
 import { isValidUrl } from "../../utils/validation";
-
 
 const useStyles = makeStyles({
   box: {
@@ -11,41 +12,63 @@ const useStyles = makeStyles({
     flexDirection: "column",
     gap: "8px",
   },
+  textGap: {
+    gap: "6px",
+  },
 });
 
 export const QuickTargetBox = () => {
   const styles = useStyles();
-  const [url, setUrl] = useState("");
+  const [url, setUrl]       = useState("");
+  const [saved, setSaved]   = useState(false);
+  const [error, setError]   = useState<string | null>(null);
 
   const handleSave = async () => {
-    try {
-      await saveCurrentUrl(url);
-      console.log("URL saved:", url);
-    } catch (err) {
-      console.error("Failed to save URL:", err);
+    // reset messages
+    setError(null);
+    setSaved(false);
+
+    if (!url) {
+      setError("Please enter a URL.");
+      return;
     }
+    if (!isValidUrl(url)) {
+      setError("Please enter a valid URL (including https://).");
+      return;
+    }
+
+    await saveCurrentUrl(url);
+    setSaved(true);
+    setUrl("");
+    // clear success after 2s
+    setTimeout(() => setSaved(false), 2000);
   };
 
   return (
     <div className={styles.box}>
-      <Field label="URL" hint="Base URL—everything under this path is allowed (e.g. https://chatgpt.com/)">
+      <Field
+        label="URL"
+        hint="Base URL—everything under this path is allowed (e.g. https://chatgpt.com/)"
+        validationState={error ? "error" : saved ? "success" : undefined}
+        validationMessage={
+          error
+            ? error
+            : saved
+            ? "Quick-target saved!"
+            : undefined
+        }
+        className={styles.textGap}
+      >
         <Input
           value={url}
-          onChange={(e) => setUrl(e.currentTarget.value)}
+          onChange={(e) => {
+            setUrl(e.currentTarget.value);
+            setError(null);
+          }}
           placeholder="https://example.com/"
-          
         />
       </Field>
-      <Button
-        onClick={() => {
-          if (!isValidUrl(url)) return;
-          saveCurrentUrl(url);
-          setUrl(""); // optional: reset input
-        }}
-      >
-        Save
-      </Button>
-
+      <Button onClick={handleSave}>Save</Button>
     </div>
   );
 };
