@@ -10,7 +10,7 @@ const useStyles = makeStyles({
   popup: {
     width: "430px",
     padding: "16px",
-    backgroundColor: "var(--colorNeutralBackground1)", 
+    backgroundColor: "var(--colorNeutralBackground1)",
     display: "flex",
     flexDirection: "column",
   },
@@ -26,9 +26,17 @@ const App = () => {
     <FluentProvider theme={darkTheme}>
       <div className={styles.popup}>
         <HeaderSection />
-        <Divider className={styles.divider}/>
+        <Divider className={styles.divider} />
         <TargetOptionsSection />
         <BookmarksBox />
+        <a
+          href="rdzlabs.co@gmail.com?subject=StayOnSite Feedback&body=Hi, I wanted to share some feedback about the extension."
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ textAlign: "center", color: "#0078d4", fontSize: "13px" }}
+        >
+          Send Feedback
+        </a>
       </div>
     </FluentProvider>
   );
