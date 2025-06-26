@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { Divider, FluentProvider, makeStyles } from "@fluentui/react-components";
+import { Divider, FluentProvider, Link, makeStyles } from "@fluentui/react-components";
 import { darkTheme } from "../theme/customTheme";
 import { HeaderSection } from "./components/HeaderSection";
 import { TargetOptionsSection } from "./components/TargetOptionsSection";
@@ -16,7 +16,17 @@ const useStyles = makeStyles({
   },
   divider: {
     minHeight: "30px",
-  }
+  },
+  linkRow: {
+    display: "flex",
+    justifyContent: "space-between",
+    fontSize: "13px",
+    marginTop: "20px",
+  },
+  link: {
+    color: "var(--colorBrandForeground1)",
+    textDecoration: "none",
+  },
 });
 
 const App = () => {
@@ -29,14 +39,27 @@ const App = () => {
         <Divider className={styles.divider} />
         <TargetOptionsSection />
         <BookmarksBox />
-        <a
-          href="rdzlabs.co@gmail.com?subject=StayOnSite Feedback&body=Hi, I wanted to share some feedback about the extension."
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ textAlign: "center", color: "#0078d4", fontSize: "13px" }}
-        >
-          Send Feedback
-        </a>
+
+        <div className={styles.linkRow}>
+          <Link
+            href="mailto:rdzlabs.co@gmail.com?subject=StayOnSite Feedback&body=Hi, I wanted to share some feedback about the extension."
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.link}
+          >
+            Send Feedback
+          </Link>
+
+          <Link
+            href="https://www.flaticon.com/free-icon/target_610064?term=target&page=1&position=9&origin=tag&related_id=610064" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.link}
+          >
+            Icon Credit
+          </Link>
+        </div>
+
       </div>
     </FluentProvider>
   );
