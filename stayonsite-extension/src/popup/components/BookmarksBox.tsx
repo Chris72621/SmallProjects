@@ -70,6 +70,7 @@ export const BookmarksBox = () => {
                                         await saveCurrentUrl(url);
                                         setShowSite(true);
                                         setActivate(true);
+                                        chrome.tabs.create({ url });
                                     }
                                 }}
                             >
