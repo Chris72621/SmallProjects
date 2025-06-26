@@ -54,7 +54,7 @@ This repo is a snapshot of experiments and learning milestones. Some projects ar
 
 ## 🚀 Next Steps / Tips
 
-- *StayOnSite* has since moved to a dedicated repo and is now feature-rich and published.
+- *StayOnSite* will be moved to a dedicated repo and is now feature-rich and published.
 - Small projects like the Valentine page remain as reference for design/play.
 - Feel free to fork or explore — these are open to experimentation or reuse.
 
